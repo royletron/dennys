@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="urban" tilewidth="32" tileheight="32">
+  <image source="urban.png" width="256" height="192"/>
+ </tileset>
+ <layer name="Base" width="100" height="100">
+  <properties>
+   <property name="nocollide" value=""/>
+   <property name="tileset" value="urban"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt18EKwyAMANB49Nj//9lt0IDL7BjU4eU9CCmSk6mx7RHRn3EM+ShrceY+rLczs9Zrf3Nvc59z32vdWJPPrNXj893PPBp7kaEf69U+tHifU6lNQj/Wq3fGGLO6Fu6Pf7qaV9/uj6sa7pv14Zd+zGYa9+X3VO2HWbTH7Hz4lt2n/vs5H3vVO0M/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGCfB3ZqBRo=
+  </data>
+ </layer>
+ <layer name="Road" width="100" height="100">
+  <properties>
+   <property name="nocollide" value=""/>
+   <property name="tileset" value="urban"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt1TEKgEAQA8A0amXp/7+qdnKInRhwBvKCsJvk3nZkvoRvTdFHkzX6aOJfdTnvY4k+WtiPLv5VF3veZbyPp/C+cT/0AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD8zQ5vewGU
+  </data>
+ </layer>
+ <layer name="Accont" width="100" height="100">
+  <properties>
+   <property name="nocollide" value=""/>
+   <property name="tileset" value="urban"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt1DENAAAMw7AiGH+4o7BvqmQjyJUEoNt8BwAc+RUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAECHBeywAB0=
+  </data>
+ </layer>
+ <layer name="Walls" width="100" height="100">
+  <properties>
+   <property name="tileset" value="urban"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzt0cEJAEAIA0E7sP9uLUE4EAI3A3nluVW7fvy4oUcWPbLokUWPLHpk0SNLLwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP4y2KwBSw==
+  </data>
+ </layer>
+</map>
