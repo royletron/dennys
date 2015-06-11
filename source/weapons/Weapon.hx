@@ -9,8 +9,8 @@ import characters.Character;
 class Weapon extends FlxSprite
 {
   public var damage:Float = 10.0;
-  public var reload:Float = 2;
-  public var striketime:Float = 1;
+  public var reload:Float = 0.8;
+  public var striketime:Float = 0.2;
   private var _active:Bool = false;
   private var _timer:Float = 0.0;
   private var _holder:Character;
