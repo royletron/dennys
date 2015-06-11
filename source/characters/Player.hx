@@ -6,7 +6,7 @@ import flixel.FlxObject;
 import flixel.ui.FlxAnalog;
 import flixel.util.FlxColor;
 import flixel.util.FlxPoint;
-import weapons.Weapon;
+import weapons.BlockSword;
 
 class Player extends Character
 {
@@ -17,7 +17,7 @@ class Player extends Character
     speed = 80;
     setPhysics();
     makeGraphic(16, 16, FlxColor.BLUE);
-    weapon = new Weapon(this);
+    weapon = new BlockSword(this);
     FlxG.state.add(weapon);
   }
 

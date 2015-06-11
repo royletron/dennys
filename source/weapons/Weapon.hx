@@ -20,7 +20,6 @@ class Weapon extends FlxSprite
     _holder = holder;
     super(holder.x, holder.y);
     _active = false;
-    makeGraphic(16, 16, FlxColor.GREEN);
   }
 
   public function updatePosition()
@@ -62,10 +61,24 @@ class Weapon extends FlxSprite
   {
     if(!_active)
     {
-      _timer = 0;
-      _active = hit = true;
-      replaceColor(FlxColor.GREEN, FlxColor.RED);
+      firing();
     }
+  }
+
+  public function firing()
+  {
+    _timer = 0;
+    _active = hit = true;
+  }
+
+  public function striking()
+  {
+
+  }
+
+  public function hitting()
+  {
+
   }
 
   override public function update()
@@ -78,25 +91,17 @@ class Weapon extends FlxSprite
     else
     {
       _timer = _timer + FlxG.elapsed;
-      this.visible = true;
-      this.alpha = 1 - _timer/reload;
+
       if((_timer > striketime) && hit)
-      {
-        replaceColor(FlxColor.RED, FlxColor.GREEN);
         hit = false;
-      }
-      if(!hit)
-      {
-        this.solid = false;
-      }
+
+      if(hit)
+        hitting();
       else
-      {
-        this.solid = true;
-      }
+        striking();
+
       if(_timer > reload)
-      {
         _active = false;
-      }
     }
     super.update();
   }

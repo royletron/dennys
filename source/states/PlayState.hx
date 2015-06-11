@@ -62,6 +62,7 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		FlxG.collide(_player.weapon, _baddie);
+		FlxG.collide(_player, _baddie);
 		FlxG.collide(level.foregroundTiles, collideGroup);
 		super.update();
 	}
