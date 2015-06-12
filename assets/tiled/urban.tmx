@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="32" tileheight="32" nextobjectid="6">
  <tileset firstgid="1" name="urban" tilewidth="32" tileheight="32">
   <image source="urban.png" width="256" height="192"/>
  </tileset>
@@ -38,4 +38,9 @@
    eJzt0cEJAEAIA0E7sP9uLUE4EAI3A3nluVW7fvy4oUcWPbLokUWPLHpk0SNLLwMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP4y2KwBSw==
   </data>
  </layer>
+ <objectgroup name="Enemies">
+  <object id="3" name="Zombie" type="enemy" x="329" y="285" width="13" height="15">
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>

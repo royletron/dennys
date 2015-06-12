@@ -60,6 +60,7 @@ class AICharacter extends Character
 
   override public function hurt(damage:Float)
   {
+    range += 50;
     super.hurt(damage);
   }
 

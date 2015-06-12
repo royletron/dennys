@@ -16,6 +16,8 @@ import utils.TiledLevel;
 import weapons.Projectile;
 import flixel.group.FlxTypedGroup;
 
+import flixel.addons.editors.tiled.TiledTile;
+
 /**
  * A FlxState which can be used for the actual gameplay.
  */
@@ -52,6 +54,16 @@ class PlayState extends FlxState
 		collideGroup.add(baddieArray);
 		add(bulletArray);
 
+		for(baddieObject in level.enemies)
+		{
+			if(baddieObject.name.toLowerCase() == 'zombie')
+			{
+				var baddie:AICharacter = new AICharacter(baddieObject.x, baddieObject.y, bulletArray);
+				baddie.setTarget(_player);
+				baddieArray.add(baddie);
+			}
+		}
+
 		FlxG.debugger.visible = true;
 	}
 
@@ -73,11 +85,11 @@ class PlayState extends FlxState
 		FlxG.collide(baddieArray);
 		FlxG.collide(_player, baddieArray, characterCollide);
 		FlxG.collide(collideGroup, bulletArray, gotShot);
-		FlxG.collide(level.foregroundTiles, bulletArray);
+		FlxG.collide(level.foregroundTiles, bulletArray, hitWall);
 		FlxG.collide(level.foregroundTiles, collideGroup);
 		super.update();
 
-		if(baddieTime > baddieRate)
+		/*if(baddieTime > baddieRate)
 		{
 			var _baddie:AICharacter = new AICharacter(Math.random()*200, Math.random()*400, bulletArray);
 			_baddie.setTarget(_player);
@@ -87,7 +99,13 @@ class PlayState extends FlxState
 		}
 		else{
 			baddieTime += FlxG.elapsed;
-		}
+		}*/
+	}
+
+	public function hitWall(tile:TiledTile, bullet:Projectile)
+	{
+		bulletArray.remove(bullet);
+		bullet.destroy();
 	}
 
 	public function gotShot(character:Character, bullet:Projectile)

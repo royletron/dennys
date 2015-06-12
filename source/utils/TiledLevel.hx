@@ -28,6 +28,7 @@ class TiledLevel extends TiledMap
 	public var foregroundTiles:FlxGroup;
 	public var backgroundTiles:FlxGroup;
 	private var collidableTileLayers:Array<FlxTilemap>;
+	public var enemies:Array<TiledObject>;
 
 	public function new(tiledLevel:Dynamic)
 	{
@@ -38,6 +39,14 @@ class TiledLevel extends TiledMap
 
 		FlxG.camera.setBounds(0, 0, fullWidth, fullHeight, true);
 
+		/*trace(objectGroups);*/
+		for(objectGroup in objectGroups)
+		{
+			if(objectGroup.name.toLowerCase() == 'enemies')
+			{
+				enemies = objectGroup.objects;
+			}
+		}
 		// Load Tile Maps
 		for (tileLayer in layers)
 		{
