@@ -3,6 +3,7 @@ package states;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.FlxCamera;
 import flixel.group.FlxGroup;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
@@ -42,6 +43,7 @@ class PlayState extends FlxState
 		add(level.backgroundTiles);
 		_player = new Player(30, 30, bulletArray);
 		add(_player);
+		FlxG.camera.follow(_player, FlxCamera.STYLE_TOPDOWN, 1);
 		add(baddieArray);
 		add(level.foregroundTiles);
 		#if ios

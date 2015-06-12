@@ -25,6 +25,6 @@ class ProjectileWeapon extends Weapon
   override public function firing()
   {
     super.firing();
-    _holder.bulletArray.add(new Projectile(_holder, 100, 4, targetDirection));
+    _holder.bulletArray.add(new Projectile(_holder, 200, 4, targetDirection));
   }
 }
