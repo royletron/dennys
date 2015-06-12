@@ -14,6 +14,7 @@ class Weapon extends FlxSprite
   private var _active:Bool = false;
   private var _timer:Float = 0.0;
   private var _holder:Character;
+  public var isProjectile:Bool = false;
   public var hit:Bool = false;
   public function new(holder:Character)
   {
@@ -65,6 +66,11 @@ class Weapon extends FlxSprite
     }
   }
 
+  public function fireAt(X:Float, Y:Float)
+  {
+    
+  }
+
   public function firing()
   {
     _timer = 0;
@@ -90,8 +96,6 @@ class Weapon extends FlxSprite
     }
     else
     {
-      _timer = _timer + FlxG.elapsed;
-
       if((_timer > striketime) && hit)
         hit = false;
 
@@ -100,6 +104,7 @@ class Weapon extends FlxSprite
       else
         striking();
 
+      _timer = _timer + FlxG.elapsed;
       if(_timer > reload)
         _active = false;
     }

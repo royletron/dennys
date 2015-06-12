@@ -3,13 +3,15 @@ package weapons;
 import characters.Character;
 import flixel.util.FlxColor;
 
-class Pistol extends Weapon
+class Pistol extends ProjectileWeapon
 {
   private var struck:Bool = false;
   public function new(holder:Character)
   {
     super(holder);
     makeGraphic(16, 16, FlxColor.GREEN);
+    striketime = 0.1;
+    reload = 0.1;
   }
 
   override public function firing()

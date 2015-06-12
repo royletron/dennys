@@ -9,6 +9,7 @@ class BlockSword extends Weapon
   public function new(holder:Character)
   {
     super(holder);
+    striketime = 0.8;
     makeGraphic(16, 16, FlxColor.GREEN);
   }
 

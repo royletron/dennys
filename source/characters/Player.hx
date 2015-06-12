@@ -6,18 +6,22 @@ import flixel.FlxObject;
 import flixel.ui.FlxAnalog;
 import flixel.util.FlxColor;
 import flixel.util.FlxPoint;
-import weapons.BlockSword;
+import weapons.Pistol;
+import weapons.Projectile;
+import weapons.ProjectileWeapon;
+import flixel.group.FlxTypedGroup;
 
 class Player extends Character
 {
   public var controller:FlxAnalog;
-  public function new(X:Float=0, Y:Float=0)
+
+  public function new(X:Float=0, Y:Float=0, bulletArray:FlxTypedGroup<Projectile>)
   {
-    super(X, Y);
+    super(X, Y, bulletArray);
     speed = 80;
     setPhysics();
     makeGraphic(16, 16, FlxColor.BLUE);
-    weapon = new BlockSword(this);
+    weapon = new Pistol(this);
     FlxG.state.add(weapon);
   }
 
@@ -29,13 +33,13 @@ class Player extends Character
 
     if(controller == null)
     {
-      if (FlxG.keys.pressed.LEFT)
+      if (FlxG.keys.pressed.A)
         movement.x -= 1;
-      if (FlxG.keys.pressed.RIGHT)
+      if (FlxG.keys.pressed.D)
         movement.x += 1;
-      if (FlxG.keys.pressed.UP)
+      if (FlxG.keys.pressed.W)
         movement.y -= 1;
-      if (FlxG.keys.pressed.DOWN)
+      if (FlxG.keys.pressed.S)
         movement.y += 1;
 
       if (movement.x < 0)
@@ -46,13 +50,45 @@ class Player extends Character
         moveUp();
       else if (movement.y > 0)
         moveDown();
+
+      if (FlxG.keys.pressed.UP)
+      {
+        facing = FlxObject.UP;
+        if(weapon.isProjectile)
+          weapon.fireAt(0, -1);
+        else
+          weapon.fire();
+      }
+      if (FlxG.keys.pressed.RIGHT)
+      {
+        facing = FlxObject.RIGHT;
+        if(weapon.isProjectile)
+          weapon.fireAt(1, 0);
+        else
+          weapon.fire();
+      }
+      if (FlxG.keys.pressed.LEFT)
+      {
+        facing = FlxObject.LEFT;
+        if(weapon.isProjectile)
+          weapon.fireAt(-1, 0);
+        else
+          weapon.fire();
+      }
+      if (FlxG.keys.pressed.DOWN)
+      {
+        facing = FlxObject.DOWN;
+        if(weapon.isProjectile)
+          weapon.fireAt(0, 1);
+        else
+          weapon.fire();
+      }
+
     }
     else{
       acceleration.x = (controller.acceleration.x/40) * (speed*4);
       acceleration.y = (controller.acceleration.y/40) * (speed*4);
     }
 
-    if(FlxG.keys.pressed.X)
-      weapon.fire();
   }
 }

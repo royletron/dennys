@@ -8,9 +8,13 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.ui.FlxAnalog;
 
+import characters.Character;
 import characters.Player;
 import characters.AICharacter;
 import utils.TiledLevel;
+
+import weapons.Projectile;
+import flixel.group.FlxTypedGroup;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -18,25 +22,26 @@ import utils.TiledLevel;
 class PlayState extends FlxState
 {
 	private var _player:Player;
-	private var _baddie:AICharacter;
 	private var _controller:FlxAnalog;
 	private var level:TiledLevel;
+	private var baddieTime:Float = 0;
+	private var baddieRate:Float = 5;
 	private var collideGroup:FlxGroup = new FlxGroup();
+	private var bulletArray:FlxTypedGroup<Projectile> = new FlxTypedGroup<Projectile>();
+	private var baddieArray:FlxTypedGroup<AICharacter> = new FlxTypedGroup<AICharacter>();
 	/**
 	 * Function that is called up when to state is created to set it up.
 	 */
 	override public function create():Void
 	{
 		super.create();
-		trace('hello player');
+
 		level = new TiledLevel("assets/tiled/urban.tmx");
 		add(level.backgroundTiles);
-		_player = new Player(30, 30);
+		_player = new Player(30, 30, bulletArray);
 		add(_player);
+		add(baddieArray);
 		add(level.foregroundTiles);
-		_baddie = new AICharacter(90, 90);
-		_baddie.setTarget(_player);
-		add(_baddie);
 		#if ios
 		_controller = new FlxAnalog(80, 340, 20);
 		add(_controller);
@@ -44,7 +49,10 @@ class PlayState extends FlxState
 		#end
 
 		collideGroup.add(_player);
-		collideGroup.add(_baddie);
+		collideGroup.add(baddieArray);
+		add(bulletArray);
+
+		FlxG.debugger.visible = true;
 	}
 
 	/**
@@ -61,9 +69,37 @@ class PlayState extends FlxState
 	 */
 	override public function update():Void
 	{
-		FlxG.collide(_player.weapon, _baddie);
-		FlxG.collide(_player, _baddie);
+		FlxG.collide(_player.weapon, baddieArray);
+		FlxG.collide(baddieArray);
+		FlxG.collide(_player, baddieArray, characterCollide);
+		FlxG.collide(collideGroup, bulletArray, gotShot);
+		FlxG.collide(level.foregroundTiles, bulletArray);
 		FlxG.collide(level.foregroundTiles, collideGroup);
 		super.update();
+
+		if(baddieTime > baddieRate)
+		{
+			var _baddie:AICharacter = new AICharacter(Math.random()*200, Math.random()*400, bulletArray);
+			_baddie.setTarget(_player);
+			baddieArray.add(_baddie);
+			baddieTime = 0;
+			baddieRate = 3 + (Math.random()*10);
+		}
+		else{
+			baddieTime += FlxG.elapsed;
+		}
+	}
+
+	public function gotShot(character:Character, bullet:Projectile)
+	{
+		bulletArray.remove(bullet);
+		character.hurt(bullet.damage);
+		//hurt...?
+		bullet.destroy();
+	}
+
+	public function characterCollide(player:Character, baddie:Character)
+	{
+		baddie.collide(player);
 	}
 }

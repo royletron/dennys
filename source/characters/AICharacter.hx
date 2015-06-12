@@ -7,6 +7,9 @@ import flixel.util.FlxColor;
 import flixel.util.FlxPoint;
 import weapons.Weapon;
 import utils.D;
+import weapons.Projectile;
+import flixel.group.FlxTypedGroup;
+import flixel.util.FlxSpriteUtil;
 
 class AICharacter extends Character
 {
@@ -15,10 +18,11 @@ class AICharacter extends Character
   private var brains:Bool = false;
   private var boredcolor:Int = FlxColor.CORAL;
   private var activecolor:Int = FlxColor.CRIMSON;
-  public function new(X:Float, Y:Float)
+  public function new(X:Float, Y:Float, bulletArray:FlxTypedGroup<Projectile>)
   {
-    super(X, Y);
+    super(X, Y, bulletArray);
     makeGraphic(16, 16, boredcolor);
+    health = 30;
   }
 
   public function setTarget(target:Character)
@@ -52,6 +56,11 @@ class AICharacter extends Character
       }
     }
     super.update();
+  }
+
+  override public function hurt(damage:Float)
+  {
+    super.hurt(damage);
   }
 
   override public function updateControls()
