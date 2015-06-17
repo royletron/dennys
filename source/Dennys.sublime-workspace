@@ -15,23 +15,39 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 67.0,
-		"last_filter": "install",
+		"height": 207.0,
+		"last_filter": "hax",
 		"selected_items":
 		[
 			[
-				"install",
+				"hax",
+				"Haxe: Run build"
+			],
+			[
+				"haxe",
+				"Haxe: Choose Build Target"
+			],
+			[
+				"buil",
+				"Haxe: Run build"
+			],
+			[
+				"",
+				"Haxe: Choose Build Target"
+			],
+			[
+				"ins",
 				"Package Control: Install Package"
 			]
 		],
-		"width": 449.0
+		"width": 382.0
 	},
 	"console":
 	{
 		"height": 126.0,
 		"history":
 		[
-			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
 		]
 	},
 	"distraction_free":
@@ -43,10 +59,15 @@
 		"side_bar_visible": false,
 		"status_bar_visible": false
 	},
+	"expanded_folders":
+	[
+		"/C/Users/royletron/Workspace/Haxe/dennys/source"
+	],
 	"file_history":
 	[
-		"/Users/darrenroyle/Downloads/MyRESTService/MyRESTService/Products.cs",
-		"/Users/darrenroyle/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings"
+		"/C/Users/royletron/Workspace/Haxe/dennys/source/Main.hx",
+		"/C/Users/royletron/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/royletron/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings"
 	],
 	"find":
 	{
@@ -117,12 +138,16 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 126.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
 	},
 	"pinned_build_system": "",
-	"project": "Project.sublime-project",
+	"project": "Dennys.sublime-project",
 	"replace":
 	{
 		"height": 0.0
@@ -139,12 +164,12 @@
 	},
 	"select_project":
 	{
-		"height": 0.0,
+		"height": 500.0,
 		"last_filter": "",
 		"selected_items":
 		[
 		],
-		"width": 0.0
+		"width": 380.0
 	},
 	"select_symbol":
 	{
