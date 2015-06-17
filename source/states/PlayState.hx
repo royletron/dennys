@@ -56,17 +56,29 @@ class PlayState extends FlxState
 		collideGroup.add(baddieArray);
 		add(bulletArray);
 
-		for(baddieObject in level.enemies)
+		for(enemy in level.enemies)
 		{
-			if(baddieObject.name.toLowerCase() == 'zombie')
+			if(enemy.name.toLowerCase() == 'zombie')
 			{
-				var baddie:AICharacter = new AICharacter(baddieObject.x, baddieObject.y, bulletArray);
+				var baddie:AICharacter = new AICharacter(enemy.position.x, enemy.position.y, bulletArray);
+				baddie.x += -baddie.width/2;
+				baddie.y += -baddie.height/2;
 				baddie.setTarget(_player);
 				baddieArray.add(baddie);
 			}
 		}
 
-		FlxG.debugger.visible = true;
+		// for(baddieObject in level.enemies)
+		// {
+		// 	if(baddieObject.name.toLowerCase() == 'zombie')
+		// 	{
+		// 		var baddie:AICharacter = new AICharacter(baddieObject.x, baddieObject.y, bulletArray);
+		// 		baddie.setTarget(_player);
+		// 		baddieArray.add(baddie);
+		// 	}
+		// }
+
+		// FlxG.debugger.visible = true;
 	}
 
 	/**

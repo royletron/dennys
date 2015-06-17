@@ -7,12 +7,15 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.util.FlxPoint;
 import flixel.group.FlxGroup;
 import flixel.tile.FlxTilemap;
 import flixel.addons.editors.tiled.TiledMap;
 import flixel.addons.editors.tiled.TiledObject;
 import flixel.addons.editors.tiled.TiledObjectGroup;
 import flixel.addons.editors.tiled.TiledTileSet;
+
+import flash.utils.Object;
 
 /**
  * ...
@@ -28,7 +31,7 @@ class TiledLevel extends TiledMap
 	public var foregroundTiles:FlxGroup;
 	public var backgroundTiles:FlxGroup;
 	private var collidableTileLayers:Array<FlxTilemap>;
-	public var enemies:Array<TiledObject>;
+	public var enemies:Array<Object> = new Array<Object>();
 
 	public function new(tiledLevel:Dynamic)
 	{
@@ -38,23 +41,12 @@ class TiledLevel extends TiledMap
 		backgroundTiles = new FlxGroup();
 
 		FlxG.camera.setBounds(0, 0, fullWidth, fullHeight, true);
-
-		/*trace(objectGroups);*/
-		for(objectGroup in objectGroups)
-		{
-			if(objectGroup.name.toLowerCase() == 'enemies')
-			{
-				enemies = objectGroup.objects;
-			}
-		}
 		// Load Tile Maps
 		for (tileLayer in layers)
 		{
 			var tileSheetName:String = tileLayer.properties.get("tileset");
-
 			if (tileSheetName == null)
 				throw "'tileset' property not defined for the '" + tileLayer.name + "' layer. Please add the property to the layer.";
-
 			var tileSet:TiledTileSet = null;
 			for (ts in tilesets)
 			{
@@ -68,25 +60,48 @@ class TiledLevel extends TiledMap
 			if (tileSet == null)
 				throw "Tileset '" + tileSheetName + " not found. Did you mispell the 'tilesheet' property in " + tileLayer.name + "' layer?";
 
-			var imagePath 		= new Path(tileSet.imageSource);
-			var processedPath 	= c_PATH_LEVEL_TILESHEETS + imagePath.file + "." + imagePath.ext;
 
-			var tilemap:FlxTilemap = new FlxTilemap();
-			tilemap.widthInTiles = width;
-			tilemap.heightInTiles = height;
-			tilemap.loadMap(tileLayer.tileArray, processedPath, tileSet.tileWidth, tileSet.tileHeight, 0, 1, 1, 1);
-
-			if (tileLayer.properties.contains("nocollide"))
+			if(tileLayer.name == "Entities")
 			{
-				backgroundTiles.add(tilemap);
+				var counter:Int = 0;
+				for(tile in tileLayer.tileArray)
+				{
+					if(tile != 0)
+					{
+						var name:String = tileSet.getPropertiesByGid(tile).get('name');
+						var type:String = tileSet.getPropertiesByGid(tile).get('type');
+						trace(tileSet.tileWidth);
+						var position:FlxPoint = new FlxPoint(((counter % width) * tileSet.tileWidth) + (tileSet.tileWidth/2), (Math.floor(counter/width) * tileSet.tileHeight) + (tileSet.tileHeight/2));
+						var entity:Object = {name: name, type: type, position: position};
+						switch type
+						{
+							case 'enemy': enemies.push(entity);
+						};
+					}
+					counter ++;
+				}
 			}
-			else
-			{
-				if (collidableTileLayers == null)
-					collidableTileLayers = new Array<FlxTilemap>();
+			else{
+				var imagePath 		= new Path(tileSet.imageSource);
+				var processedPath 	= c_PATH_LEVEL_TILESHEETS + imagePath.file + "." + imagePath.ext;
 
-				foregroundTiles.add(tilemap);
-				collidableTileLayers.push(tilemap);
+				var tilemap:FlxTilemap = new FlxTilemap();
+				tilemap.widthInTiles = width;
+				tilemap.heightInTiles = height;
+				tilemap.loadMap(tileLayer.tileArray, processedPath, tileSet.tileWidth, tileSet.tileHeight, 0, 1, 1, 1);
+
+				if (tileLayer.properties.contains("nocollide"))
+				{
+					backgroundTiles.add(tilemap);
+				}
+				else
+				{
+					if (collidableTileLayers == null)
+						collidableTileLayers = new Array<FlxTilemap>();
+
+					foregroundTiles.add(tilemap);
+					collidableTileLayers.push(tilemap);
+				}
 			}
 		}
 	}
