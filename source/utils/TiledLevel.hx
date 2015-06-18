@@ -32,6 +32,7 @@ class TiledLevel extends TiledMap
 	public var backgroundTiles:FlxGroup;
 	private var collidableTileLayers:Array<FlxTilemap>;
 	public var enemies:Array<Object> = new Array<Object>();
+	public var obstacles:Array<Object> = new Array<Object>();
 
 	public function new(tiledLevel:Dynamic)
 	{
@@ -68,14 +69,15 @@ class TiledLevel extends TiledMap
 				{
 					if(tile != 0)
 					{
-						var name:String = tileSet.getPropertiesByGid(tile).get('name');
-						var type:String = tileSet.getPropertiesByGid(tile).get('type');
+						var name:String = tileSet.getPropertiesByGid(tile).get('name').toLowerCase();
+						var type:String = tileSet.getPropertiesByGid(tile).get('type').toLowerCase();
 						trace(tileSet.tileWidth);
 						var position:FlxPoint = new FlxPoint(((counter % width) * tileSet.tileWidth) + (tileSet.tileWidth/2), (Math.floor(counter/width) * tileSet.tileHeight) + (tileSet.tileHeight/2));
 						var entity:Object = {name: name, type: type, position: position};
 						switch type
 						{
 							case 'enemy': enemies.push(entity);
+							case 'obstacle': obstacles.push(entity);
 						};
 					}
 					counter ++;
