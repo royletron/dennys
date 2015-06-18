@@ -13,7 +13,7 @@ import characters.Character;
 import characters.Player;
 import characters.AICharacter;
 import utils.TiledLevel;
-
+import objects.ActionObject;
 import weapons.Projectile;
 import flixel.group.FlxTypedGroup;
 
@@ -32,6 +32,7 @@ class PlayState extends FlxState
 	private var collideGroup:FlxGroup = new FlxGroup();
 	private var bulletArray:FlxTypedGroup<Projectile> = new FlxTypedGroup<Projectile>();
 	private var baddieArray:FlxTypedGroup<AICharacter> = new FlxTypedGroup<AICharacter>();
+	private var obstacleArray:FlxTypedGroup<ActionObject> = new FlxTypedGroup<ActionObject>();
 	/**
 	 * Function that is called up when to state is created to set it up.
 	 */
@@ -45,6 +46,7 @@ class PlayState extends FlxState
 		add(_player);
 		FlxG.camera.follow(_player, FlxCamera.STYLE_TOPDOWN, 1);
 		add(baddieArray);
+		add(obstacleArray);
 		add(level.foregroundTiles);
 		#if ios
 		_controller = new FlxAnalog(80, 340, 20);
@@ -68,17 +70,11 @@ class PlayState extends FlxState
 			}
 		}
 
-		// for(baddieObject in level.enemies)
-		// {
-		// 	if(baddieObject.name.toLowerCase() == 'zombie')
-		// 	{
-		// 		var baddie:AICharacter = new AICharacter(baddieObject.x, baddieObject.y, bulletArray);
-		// 		baddie.setTarget(_player);
-		// 		baddieArray.add(baddie);
-		// 	}
-		// }
-
-		// FlxG.debugger.visible = true;
+		for(obstacle in level.obstacles)
+		{
+			var ob:ActionObject = new ActionObject(obstacle.position.x, obstacle.position.y);
+			obstacleArray.add(ob);
+		}
 	}
 
 	/**
