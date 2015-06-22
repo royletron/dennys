@@ -24,7 +24,7 @@ import flixel.addons.editors.tiled.TiledTile;
  */
 class PlayState extends FlxState
 {
-	private var _player:Player;
+	public var player:Player;
 	private var _controller:FlxAnalog;
 	private var level:TiledLevel;
 	private var baddieTime:Float = 0;
@@ -42,19 +42,19 @@ class PlayState extends FlxState
 
 		level = new TiledLevel("assets/tiled/urban.tmx");
 		add(level.backgroundTiles);
-		_player = new Player(30, 30, bulletArray);
-		add(_player);
-		FlxG.camera.follow(_player, FlxCamera.STYLE_TOPDOWN, 1);
-		add(baddieArray);
+		player = new Player(30, 30, bulletArray);
 		add(obstacleArray);
+		add(player);
+		FlxG.camera.follow(player, FlxCamera.STYLE_TOPDOWN, 1);
+		add(baddieArray);
 		add(level.foregroundTiles);
 		#if ios
 		_controller = new FlxAnalog(80, 340, 20);
 		add(_controller);
-		_player.controller = _controller;
+		player.controller = _controller;
 		#end
 
-		collideGroup.add(_player);
+		collideGroup.add(player);
 		collideGroup.add(baddieArray);
 		add(bulletArray);
 
@@ -65,14 +65,14 @@ class PlayState extends FlxState
 				var baddie:AICharacter = new AICharacter(enemy.position.x, enemy.position.y, bulletArray);
 				baddie.x += -baddie.width/2;
 				baddie.y += -baddie.height/2;
-				baddie.setTarget(_player);
+				baddie.setTarget(player);
 				baddieArray.add(baddie);
 			}
 		}
 
 		for(obstacle in level.obstacles)
 		{
-			var ob:ActionObject = new ActionObject(obstacle.position.x, obstacle.position.y);
+			var ob:ActionObject = new ActionObject(obstacle.position.x, obstacle.position.y, player);
 			obstacleArray.add(ob);
 		}
 	}
@@ -91,9 +91,9 @@ class PlayState extends FlxState
 	 */
 	override public function update():Void
 	{
-		FlxG.collide(_player.weapon, baddieArray);
+		FlxG.collide(player.weapon, baddieArray);
 		FlxG.collide(baddieArray);
-		FlxG.collide(_player, baddieArray, characterCollide);
+		FlxG.collide(player, baddieArray, characterCollide);
 		FlxG.collide(collideGroup, bulletArray, gotShot);
 		FlxG.collide(level.foregroundTiles, bulletArray, hitWall);
 		FlxG.collide(level.foregroundTiles, collideGroup);
@@ -102,7 +102,7 @@ class PlayState extends FlxState
 		/*if(baddieTime > baddieRate)
 		{
 			var _baddie:AICharacter = new AICharacter(Math.random()*200, Math.random()*400, bulletArray);
-			_baddie.setTarget(_player);
+			_baddie.setTarget(player);
 			baddieArray.add(_baddie);
 			baddieTime = 0;
 			baddieRate = 3 + (Math.random()*10);

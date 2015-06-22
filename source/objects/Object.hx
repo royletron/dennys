@@ -1,13 +1,28 @@
 package objects;
 
+import characters.Player;
 import flixel.FlxSprite;
+import flixel.group.FlxGroup;
 import flixel.util.FlxColor;
+import flixel.FlxG;
 
-class Object extends FlxSprite
+class Object extends FlxGroup
 {
-	public function new(X:Float, Y:Float)
+	public var x:Float;
+	public var y:Float;
+	
+	public var main:FlxSprite = new FlxSprite();
+	
+	public var player:FlxSprite;
+	
+	public function new(X:Float, Y:Float, player:Player)
 	{
-		super(X, Y);
-		makeGraphic(32, 32, FlxColor.CHARCOAL);
+		super();
+		this.player = player;
+
+		this.x = main.x = X;
+		this.y = main.y = Y;
+		
+		add(main);
 	}	
 }
